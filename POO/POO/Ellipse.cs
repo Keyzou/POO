@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace Projet_POO
+namespace POO
 {
     internal class Ellipse : Cercle, ITranslatable, IRotatable
     {
@@ -21,6 +21,11 @@ namespace Projet_POO
         public void Translation()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToSVG()
+        {
+            return "<ellipse cx=\""+Centre.X+"\" cy=\""+Centre.Y+"\" rx=\""+Rayon+"\" ry=\""+RayonY+"\" style=\"fill: rgb("+Couleur.R+","+Couleur.G+","+Couleur.B+")\" />";
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace Projet_POO
+namespace POO
 {
     internal class Rectangle : Forme, ITranslatable, IRotatable
     {
@@ -25,6 +25,12 @@ namespace Projet_POO
         public void Translation()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToSVG()
+        {
+            return "<rect x=\"" + Location.X + "\" y=\"" + Location.Y + "\" width=\"" + Longueur + "\" height=\"" +
+                   Largeur + "\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" />";
         }
     }
 }

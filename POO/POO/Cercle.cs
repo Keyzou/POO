@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace Projet_POO
+namespace POO
 {
     internal class Cercle : Forme, ITranslatable
     {
@@ -17,6 +17,12 @@ namespace Projet_POO
         public void Translation()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToSVG()
+        {
+            return "<circle cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" style=\"fill: rgb(" +
+                   Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" />";
         }
     }
 }

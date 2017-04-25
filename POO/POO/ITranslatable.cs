@@ -1,4 +1,4 @@
-﻿namespace Projet_POO
+﻿namespace POO
 {
     internal interface ITranslatable
     {

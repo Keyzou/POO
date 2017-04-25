@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Projet_POO
+namespace POO
 {
     internal class Point : ITranslatable, IRotatable
     {

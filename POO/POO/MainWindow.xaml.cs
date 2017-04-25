@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using Microsoft.Win32;
@@ -13,6 +14,7 @@ namespace POO
         public MainWindow()
         {
             InitializeComponent();
+            convert.IsEnabled = false;
         }
 
         private void open_Click(object sender, RoutedEventArgs e)
@@ -28,13 +30,20 @@ namespace POO
         {
             try
             {
-                if (filePath != null) MessageBox.Show(File.ReadAllText(filePath?.Text));
+                SVG svg = SVG.FromFile(filePath.Text);
+                svg.Save();
+                errorLabel.Content = "Conversion réussie !";
             }
             catch (FileNotFoundException err)
             {
                 MessageBox.Show("Fichier introuvable: " + err.FileName);
                 return;
             }
+        }
+
+        private void filePath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            convert.IsEnabled = filePath.Text != "";
         }
     }
 }

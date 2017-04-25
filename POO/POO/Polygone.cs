@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 
-namespace Projet_POO
+namespace POO
 {
     internal class Polygone : Forme, IRotatable
     {
@@ -15,6 +15,11 @@ namespace Projet_POO
         public List<Point> Points { get; private set; }
 
         public void Rotation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToSVG()
         {
             throw new NotImplementedException();
         }

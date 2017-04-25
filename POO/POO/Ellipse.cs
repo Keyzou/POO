@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Projet_POO
 {
-    class Ellipse : Cercle, ITranslatable, IRotatable
+    internal class Ellipse : Cercle, ITranslatable, IRotatable
     {
-        public int RayonY { get; private set; }
-
-        public Ellipse(int idElement, Color couleur, int ordre, int cx, int cy, int rx, int ry) : base(idElement, couleur, ordre, cx, cy, rx)
+        public Ellipse(int idElement, Color couleur, int ordre, int cx, int cy, int rx, int ry)
+            : base(idElement, couleur, ordre, cx, cy, rx)
         {
-            this.RayonY = ry;
+            RayonY = ry;
         }
 
-        public void Translation()
+        public int RayonY { get; private set; }
+
+        public void Rotation()
         {
             throw new NotImplementedException();
         }
 
-        public void Rotation()
+        public void Translation()
         {
             throw new NotImplementedException();
         }

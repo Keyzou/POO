@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POO"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="Convertisseur CSV >> SVG" Height="200" Width="400">
+    <StackPanel>
+        <Label x:Name="label" Content="Conversion CSV =&gt; SVG" HorizontalAlignment="Center"/>
+        <StackPanel Height="20" Orientation="Horizontal" Margin="0,20">
+            <TextBox x:Name="filePath" TextWrapping="Wrap" Width="250" Margin="25,0,15,0"/>
+            <Button x:Name="open" Content="Parcourir.." Width="75" Click="open_Click"/>
+        </StackPanel>
+        <Button x:Name="convert" Content="Conversion" Width="100" Height="20" Margin="0,0,0,20" VerticalAlignment="Bottom" Click="convert_Click"/>
+        <Label x:Name="errorLabel" Content="" Margin="25,0,0,0"/>
+    </StackPanel>
 </Window>

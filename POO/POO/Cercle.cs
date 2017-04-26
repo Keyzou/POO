@@ -13,16 +13,16 @@ namespace POO
 
         public Point Centre { get; private set; }
         public int Rayon { get; private set; }
-
-        public void Translation()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public override string ToSVG()
         {
             return "<circle cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" style=\"fill: rgb(" +
-                   Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" />";
+                   Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" "+TransformString+" />";
+        }
+
+        public void Translation(int dx, int dy)
+        {
+            
         }
     }
 }

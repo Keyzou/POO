@@ -65,9 +65,49 @@ namespace POO
                     };
                     var ordre = int.Parse(args[9]);
                     formes.Add(new Rectangle(id, c, ordre, int.Parse(args[2]), int.Parse(args[3]), int.Parse(args[4]), int.Parse(args[5])));
+                } else if (string.Equals(args[0], "Texte"))
+                {
+                    var c = new Color
+                    {
+                        R = (byte)int.Parse(args[5]),
+                        G = (byte)int.Parse(args[6]),
+                        B = (byte)int.Parse(args[7])
+                    };
+                    var ordre = int.Parse(args[8]);
+                    formes.Add(new Texte(id, c, ordre, args[4], new Point(int.Parse(args[2]), int.Parse(args[3]))));
+
+                }
+                else if (string.Equals(args[0], "Polygone"))
+                {
+                    var c = new Color
+                    {
+                        R = (byte) int.Parse(args[3]),
+                        G = (byte) int.Parse(args[4]),
+                        B = (byte) int.Parse(args[5])
+                    };
+                    var pointsStr = args[2].Split(' ');
+                    var points = new Point[pointsStr.Length];
+                    for (int i = 0; i < points.Length; i++)
+                    {
+                        var str = pointsStr[i].Split(',');
+                        points[i] = new Point(int.Parse(str[0]), int.Parse(str[1]));
+                    }
+                    var ordre = int.Parse(args[6]);
+                    formes.Add(new Polygone(id, c, ordre, points));
+                }else if (string.Equals(args[0], "Chemin"))
+                {
+
+                    var c = new Color
+                    {
+                        R = (byte)int.Parse(args[3]),
+                        G = (byte)int.Parse(args[4]),
+                        B = (byte)int.Parse(args[5])
+                    };
+                    var ordre = int.Parse(args[6]);
+                    formes.Add(new Chemin(id, c, ordre, args[2]));
                 }
             }
-            return new SVG(formes);
+                return new SVG(formes);
         }
 
         public void Save(string path)

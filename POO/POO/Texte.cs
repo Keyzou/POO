@@ -14,20 +14,20 @@ namespace POO
         public Point Location { get; private set; }
         public string Contenu { get; private set; }
 
-        public void Rotation()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Translation()
-        {
-            throw new NotImplementedException();
-        }
-
         public override string ToSVG()
         {
             return "<text x=\"" + Location.X + "\" y=\"" + Location.Y + "\" fill=\"rgb(" + Couleur.R + "," + Couleur.G +
                    "," + Couleur.B + ")\">" + Contenu + "</text>";
+        }
+
+        public void Translation(int dx, int dy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Rotation(double angle, int cx, int cy)
+        {
+            throw new NotImplementedException();
         }
     }
 }

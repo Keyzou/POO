@@ -6,19 +6,19 @@ namespace POO
 {
     internal class Chemin : Forme, IRotatable
     {
-        public Chemin(int idElement, Color couleur, int ordre, params Point[] paths) : base(idElement, couleur, ordre)
+        public Chemin(int idElement, Color couleur, int ordre, string path) : base(idElement, couleur, ordre)
         {
-            Paths = new List<Point>(paths);
+            Path = path;
         }
 
-        public List<Point> Paths { get; private set; }
-
-        public void Rotation()
-        {
-            throw new NotImplementedException();
-        }
-
+        public string Path { get; private set; }
+        
         public override string ToSVG()
+        {
+            return "<path d=\""+Path+"\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" "+TransformString+" />";
+        }
+
+        public void Rotation(double angle, int cx, int cy)
         {
             throw new NotImplementedException();
         }

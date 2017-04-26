@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Media;
 
 namespace POO
@@ -14,12 +15,16 @@ namespace POO
 
         public List<Point> Points { get; private set; }
 
-        public void Rotation()
+        public override string ToSVG()
         {
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
+            sb.Append("<polygon points=\"");
+            Points.ForEach(point => sb.Append(point.X+","+point.Y+" "));
+            sb.Append("\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" "+TransformString+" />");
+            return sb.ToString();
         }
 
-        public override string ToSVG()
+        public void Rotation(double angle, int cx, int cy)
         {
             throw new NotImplementedException();
         }

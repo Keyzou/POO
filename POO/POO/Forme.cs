@@ -16,6 +16,7 @@ namespace POO
         public int IdElement { get; private set; }
         public Color Couleur { get; private set; }
         public int Ordre { get; private set; }
+        protected string TransformString;
 
         public abstract string ToSVG();
 

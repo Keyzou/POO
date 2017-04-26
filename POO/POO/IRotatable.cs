@@ -2,6 +2,6 @@
 {
     internal interface IRotatable
     {
-        void Rotation();
+        void Rotation(double angle, int cx, int cy);
     }
 }

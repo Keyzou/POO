@@ -2,6 +2,6 @@
 {
     internal interface ITranslatable
     {
-        void Translation();
+        void Translation(int dx, int dy);
     }
 }

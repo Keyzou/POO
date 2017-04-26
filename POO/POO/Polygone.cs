@@ -7,7 +7,8 @@ namespace POO
 {
     internal class Polygone : Forme, IRotatable
     {
-        public Polygone(int idElement, Color couleur, int ordre, params Point[] points)
+        //
+        public Polygone(int idElement, Color couleur, int ordre, Point[] points)
             : base(idElement, couleur, ordre)
         {
             Points = new List<Point>(points);

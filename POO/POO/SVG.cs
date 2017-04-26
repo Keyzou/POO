@@ -70,9 +70,9 @@ namespace POO
             return new SVG(formes);
         }
 
-        public void Save()
+        public void Save(string path)
         {
-            File.WriteAllText("result.svg", ToSVG());
+            File.WriteAllText(path, ToSVG());
         }
 
         public override string ToString()

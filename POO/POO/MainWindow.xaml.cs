@@ -30,9 +30,13 @@ namespace POO
         {
             try
             {
-                SVG svg = SVG.FromFile(filePath.Text);
-                svg.Save();
-                errorLabel.Content = "Conversion réussie !";
+                var sfd = new SaveFileDialog();
+                if (sfd.ShowDialog() == true)
+                {
+                    SVG svg = SVG.FromFile(filePath.Text);
+                    svg.Save(sfd.FileName);
+                    errorLabel.Content = "Conversion réussie !";
+                }
             }
             catch (FileNotFoundException err)
             {

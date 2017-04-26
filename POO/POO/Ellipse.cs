@@ -15,12 +15,12 @@ namespace POO
 
         public override string ToSVG()
         {
-            return "<ellipse cx=\""+Centre.X+"\" cy=\""+Centre.Y+"\" rx=\""+Rayon+"\" ry=\""+RayonY+"\" style=\"fill: rgb("+Couleur.R+","+Couleur.G+","+Couleur.B+")\" "+TransformString+" />";
+            return "<ellipse cx=\""+Centre.X+"\" cy=\""+Centre.Y+"\" rx=\""+Rayon+"\" ry=\""+RayonY+"\" style=\"fill: rgb("+Couleur.R+","+Couleur.G+","+Couleur.B+ ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />";
         }
 
-        public void Rotation(double angle, int cx, int cy)
+        public void Rotation(int angle, int cx, int cy)
         {
-            throw new NotImplementedException();
+            TransformString += "rotate("+angle+" "+cx+","+cy+") ";
         }
     }
 }

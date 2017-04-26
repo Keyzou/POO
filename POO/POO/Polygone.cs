@@ -20,13 +20,13 @@ namespace POO
             var sb = new StringBuilder();
             sb.Append("<polygon points=\"");
             Points.ForEach(point => sb.Append(point.X+","+point.Y+" "));
-            sb.Append("\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" "+TransformString+" />");
+            sb.Append("\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />");
             return sb.ToString();
         }
 
-        public void Rotation(double angle, int cx, int cy)
+        public void Rotation(int angle, int cx, int cy)
         {
-            throw new NotImplementedException();
+            TransformString += "rotate(" + angle + " " + cx + "," + cy + ") ";
         }
     }
 }

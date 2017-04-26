@@ -17,12 +17,12 @@ namespace POO
         public override string ToSVG()
         {
             return "<circle cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" style=\"fill: rgb(" +
-                   Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" "+TransformString+" />";
+                   Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />";
         }
 
         public void Translation(int dx, int dy)
         {
-            
+            TransformString += "translate(" + dx + "," + dy + ") ";
         }
     }
 }

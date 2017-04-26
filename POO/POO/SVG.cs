@@ -31,10 +31,18 @@ namespace POO
         {
             var strArr = File.ReadAllLines(filePath);
             var formes = new List<Forme>();
+            var transforms = new List<string>();
             foreach (var s in strArr)
             {
                 var args = s.Split(';');
                 var id = int.Parse(args[1]);
+
+                if (string.Equals(args[0], "Rotation") || string.Equals(args[0], "Translation"))
+                {
+                    transforms.Add(s);
+                    continue;
+                }
+
                 if (string.Equals(args[0], "Cercle"))
                 {
                     var c = new Color
@@ -106,8 +114,28 @@ namespace POO
                     var ordre = int.Parse(args[6]);
                     formes.Add(new Chemin(id, c, ordre, args[2]));
                 }
+                
+
             }
-                return new SVG(formes);
+
+            foreach (var transform in transforms)
+            {
+                var args = transform.Split(';');
+                switch (args[0])
+                {
+                    case "Rotation":
+                        var rotatable = formes[int.Parse(args[1])-1] as IRotatable;
+                        rotatable?.Rotation(int.Parse(args[2]), int.Parse(args[3]), int.Parse(args[4]));
+                        break;
+                    case "Translation":
+                        var translatable = formes[int.Parse(args[1])-1] as ITranslatable;
+                        translatable?.Translation(int.Parse(args[2]), int.Parse(args[3]));
+                        break;
+
+                }
+            }
+
+            return new SVG(formes);
         }
 
         public void Save(string path)

@@ -20,17 +20,17 @@ namespace POO
         public override string ToSVG()
         {
             return "<rect x=\"" + Location.X + "\" y=\"" + Location.Y + "\" width=\"" + Longueur + "\" height=\"" +
-                   Largeur + "\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" "+TransformString+" />";
+                   Largeur + "\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" "+(!string.IsNullOrEmpty(TransformString) ? "transform=\""+TransformString+"\"" : "")+" />";
         }
 
         public void Translation(int dx, int dy)
         {
-            throw new NotImplementedException();
+            TransformString += "translate(" + dx + "," + dy + ") ";
         }
 
-        public void Rotation(double angle, int cx, int cy)
+        public void Rotation(int angle, int cx, int cy)
         {
-            throw new NotImplementedException();
+            TransformString += "rotate(" + angle + " " + cx + "," + cy + ") ";
         }
     }
 }

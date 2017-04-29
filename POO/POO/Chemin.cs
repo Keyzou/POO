@@ -13,7 +13,7 @@ namespace POO
 
         public string Path { get; private set; }
         
-        public override string ToSVG()
+        public override string ToSVG(bool is3D, bool contours)
         {
             return "<path d=\""+Path+"\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />";
         }

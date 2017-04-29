@@ -11,9 +11,13 @@ namespace POO
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private string _lastFile = "";
+
         public MainWindow()
         {
             InitializeComponent();
+            endPanel.Visibility = Visibility.Hidden;
             convert.IsEnabled = false;
         }
 
@@ -31,12 +35,12 @@ namespace POO
             try
             {
                 var sfd = new SaveFileDialog();
-                if (sfd.ShowDialog() == true)
-                {
-                    SVG svg = SVG.FromFile(filePath.Text);
-                    svg.Save(sfd.FileName);
-                    errorLabel.Content = "Conversion réussie !";
-                }
+                if (sfd.ShowDialog() == false) return;
+                var svg = SVG.FromFile(filePath.Text, cb3D.IsChecked, cbContour.IsChecked);
+                svg.Save(sfd.FileName);
+                errorLabel.Content = "Conversion réussie !";
+                endPanel.Visibility = Visibility.Visible;
+                _lastFile = sfd.FileName;
             }
             catch (FileNotFoundException err)
             {
@@ -48,6 +52,11 @@ namespace POO
         private void filePath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             convert.IsEnabled = filePath.Text != "";
+        }
+
+        private void ouvrirBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(_lastFile);
         }
     }
 }

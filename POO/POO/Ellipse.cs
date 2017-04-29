@@ -13,7 +13,7 @@ namespace POO
 
         public int RayonY { get; private set; }
 
-        public override string ToSVG()
+        public override string ToSVG(bool is3D, bool contours)
         {
             return "<ellipse cx=\""+Centre.X+"\" cy=\""+Centre.Y+"\" rx=\""+Rayon+"\" ry=\""+RayonY+"\" style=\"fill: rgb("+Couleur.R+","+Couleur.G+","+Couleur.B+ ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />";
         }

@@ -14,7 +14,7 @@ namespace POO
         public Point Centre { get; private set; }
         public int Rayon { get; private set; }
         
-        public override string ToSVG()
+        public override string ToSVG(bool is3D, bool contours)
         {
             return "<circle cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" style=\"fill: rgb(" +
                    Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />";

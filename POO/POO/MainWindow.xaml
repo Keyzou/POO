@@ -5,15 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POO"
         mc:Ignorable="d"
-        Title="Convertisseur CSV >> SVG" Height="200" Width="400">
+        Title="Convertisseur CSV >> SVG"
+        SizeToContent="WidthAndHeight">
     <StackPanel>
         <Label x:Name="label" Content="Conversion CSV =&gt; SVG" HorizontalAlignment="Center"/>
-        <Label x:Name="label1" Content="Entrez le fichier à convertir:" Margin="20,0"/>
-        <StackPanel Height="20" Orientation="Horizontal" Margin="0,0,0,20">
-            <TextBox x:Name="filePath" TextWrapping="Wrap" Width="250" Margin="25,0,15,0" TextChanged="filePath_TextChanged"/>
+        <Label x:Name="label1" Content="Entrez le fichier à convertir:" Margin="20,0,40,0" HorizontalAlignment="Left"/>
+        <StackPanel Height="20" Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Center">
+            <TextBox x:Name="filePath" TextWrapping="Wrap" Width="250" Margin="0,0,15,0" TextChanged="filePath_TextChanged"/>
             <Button x:Name="open" Content="Parcourir.." Width="75" Click="open_Click"/>
         </StackPanel>
-        <Button x:Name="convert" Content="Conversion" Width="100" Height="20" Margin="0,0,0,10" VerticalAlignment="Bottom" Click="convert_Click"/>
-        <Label x:Name="errorLabel" Content="" Margin="25,0" Foreground="#FF16A62A"/>
+        <StackPanel Height="20" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,10" Width="340">
+            <CheckBox x:Name="cb3D" Content="3D" Margin="10,0,0,0" HorizontalAlignment="Left" ToolTip="Dans la mesure du possible ! (perspective cavalière)"/>
+            <CheckBox x:Name="cbContour" Content="Contour des formes" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+        </StackPanel>
+        <Button x:Name="convert" Content="Conversion" Width="100" Height="20" Margin="0" VerticalAlignment="Bottom" Click="convert_Click" HorizontalAlignment="Center"/>
+        <StackPanel x:Name="endPanel" Height="30" Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Center">
+            <Label x:Name="errorLabel" Content="" Margin="25,0" Foreground="#FF16A62A" Width="250" VerticalAlignment="Center"/>
+            <Button x:Name="ouvrirBtn" Content="Ouvrir" Width="75" VerticalAlignment="Center" Margin="0,0,10,0" Click="ouvrirBtn_Click"/>
+        </StackPanel>
     </StackPanel>
 </Window>

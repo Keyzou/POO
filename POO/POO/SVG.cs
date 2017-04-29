@@ -9,10 +9,14 @@ namespace POO
     internal class SVG
     {
         private readonly List<Forme> _formes;
+        private bool _is3D;
+        private bool _contours;
 
-        private SVG(List<Forme> formes)
+        private SVG(List<Forme> formes, bool is3D, bool contours)
         {
             _formes = formes;
+            _is3D = is3D;
+            _contours = contours;
         }
 
         public string ToSVG()
@@ -21,13 +25,13 @@ namespace POO
             sb.Append("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">");
             sb.AppendLine();
             _formes.Sort();
-            _formes.ForEach(f => sb.Append("\t"+f.ToSVG()+"\n"));
+            _formes.ForEach(f => sb.Append("\t"+f.ToSVG(_is3D, _contours)+"\n"));
             sb.Append("</svg>");
             sb.AppendLine();
             return sb.ToString();
         }
 
-        public static SVG FromFile(string filePath)
+        public static SVG FromFile(string filePath, bool? is3D, bool? contours)
         {
             var strArr = File.ReadAllLines(filePath);
             var formes = new List<Forme>();
@@ -124,18 +128,19 @@ namespace POO
                 switch (args[0])
                 {
                     case "Rotation":
-                        var rotatable = formes[int.Parse(args[1])-1] as IRotatable;
+                        var rotatable = formes[int.Parse(args[1]) - 1] as IRotatable;
                         rotatable?.Rotation(int.Parse(args[2]), int.Parse(args[3]), int.Parse(args[4]));
                         break;
                     case "Translation":
-                        var translatable = formes[int.Parse(args[1])-1] as ITranslatable;
+                        var translatable = formes[int.Parse(args[1]) - 1] as ITranslatable;
                         translatable?.Translation(int.Parse(args[2]), int.Parse(args[3]));
                         break;
-
+                    default:
+                        break;
                 }
             }
 
-            return new SVG(formes);
+            return new SVG(formes, is3D ?? false , contours ?? false);
         }
 
         public void Save(string path)

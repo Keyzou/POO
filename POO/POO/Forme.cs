@@ -15,10 +15,10 @@ namespace POO
 
         public int IdElement { get; private set; }
         public Color Couleur { get; private set; }
-        public int Ordre { get; private set; }
+        public int Ordre { get; }
         protected string TransformString;
 
-        public abstract string ToSVG();
+        public abstract string ToSVG(bool is3D, bool contours);
 
         public int CompareTo(Forme other)
         {

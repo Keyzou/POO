@@ -14,7 +14,7 @@ namespace POO
         public Point Location { get; private set; }
         public string Contenu { get; private set; }
 
-        public override string ToSVG()
+        public override string ToSVG(bool is3D, bool contours)
         {
             return "<text x=\"" + Location.X + "\" y=\"" + Location.Y + "\" fill=\"rgb(" + Couleur.R + "," + Couleur.G +
                    "," + Couleur.B + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + ">" + Contenu + "</text>";

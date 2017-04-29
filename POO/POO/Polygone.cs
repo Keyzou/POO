@@ -16,7 +16,7 @@ namespace POO
 
         public List<Point> Points { get; private set; }
 
-        public override string ToSVG()
+        public override string ToSVG(bool is3D, bool contours)
         {
             var sb = new StringBuilder();
             sb.Append("<polygon points=\"");

@@ -18,16 +18,19 @@ namespace POO
         public override string ToSVG(bool is3D, bool contours)
         {
             var sb = new StringBuilder();
+            sb.AppendLine("<!-- CERCLE -->");
 
-            sb.Append("<circle "+(contours ? AddLineStyle() : "")+" cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" "+AddShapeStyle()+" />");
+            sb.AppendLine("<circle "+(contours ? AddLineStyle() : "")+" cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" "+AddShapeStyle(contours)+" />");
             if (is3D)
             {
-                sb.Append("<path d=\"M" + (Centre.X - Rayon) + " " + Centre.Y + " A " + Rayon + " " +
+                sb.AppendLine("\t<!-- 3D -->");
+                sb.AppendLine("\t<path d=\"M" + (Centre.X - Rayon) + " " + Centre.Y + " A " + Rayon + " " +
                           (int) (Rayon * Math.Sin(Math.PI / 4) * 0.5f) + ", 0, 0 0, " + (Centre.X + Rayon) + " " +
-                          Centre.Y + "\" " + AddPerspectiveStyle() + " />");
-                sb.Append("<path stroke-dasharray=\"5,5\" d=\"M" + (Centre.X - Rayon) + " " + Centre.Y + " A " + Rayon +
+                          Centre.Y + "\" " + AddPerspectiveStyle(contours) + " />");
+                sb.AppendLine("\t<path stroke-dasharray=\"5,5\" d=\"M" + (Centre.X - Rayon) + " " + Centre.Y + " A " + Rayon +
                           " " + (int) (Rayon * Math.Sin(Math.PI / 4) * 0.5f) + ", 0, 0 1, " + (Centre.X + Rayon) + " " +
-                          Centre.Y + "\" " + AddPerspectiveStyle() + "/>");
+                          Centre.Y + "\" " + AddPerspectiveStyle(contours) + "/>");
+                sb.AppendLine("\t<!-- FIN 3D -->");
             }
             //TODO: Ombre ?
             /*sb.AppendLine("<defs>");
@@ -37,6 +40,8 @@ namespace POO
             sb.AppendLine("</defs>");
             sb.Append("<path d=\"M" + (Centre.X) + " " + (Centre.Y+Rayon) + " A " + Rayon + " " + Rayon + ", 0, 0 0, " + (Centre.X + Rayon) + " " + Centre.Y + "\" style=\"fill: black;\" filter=\"url(#blur)\" />");
             */
+
+            sb.AppendLine("<!-- FIN CERCLE -->");
             return sb.ToString();
         }
 
@@ -46,11 +51,11 @@ namespace POO
                    Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) + ")\" stroke-width=\"1\"";
         }
 
-        protected override string AddPerspectiveStyle()
+        protected override string AddPerspectiveStyle(bool contours)
         {
-            return "style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ");stroke:rgb(" +
-                   Math.Max(0, Couleur.R - 70) + "," + Math.Max(0, Couleur.G - 70) + "," + Math.Max(0, Couleur.B - 70) +
-                   ");stroke-width:1\"";
+            return "style=\"fill: rgb(" + Math.Max(0, Couleur.R - 70) + "," + Math.Max(0, Couleur.G - 70) + "," + Math.Max(0, Couleur.B - 70) + ");"+(contours ? "stroke:rgb(" +
+                   Math.Max(0, Couleur.R - 150) + "," + Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) +
+                   ");stroke-width:1" : "" ) +"\" "+ (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
         }
 
         public void Translation(int dx, int dy)

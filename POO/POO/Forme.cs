@@ -26,13 +26,13 @@ namespace POO
                       Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + "";
         }
 
-        protected virtual string AddShapeStyle()
+        protected virtual string AddShapeStyle(bool contours)
         {
             return "style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " +
                       (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
         }
 
-        protected virtual string AddPerspectiveStyle()
+        protected virtual string AddPerspectiveStyle(bool contours)
         {
             return "style=\"fill:rgb(" + Math.Max(0, Couleur.R - 70) + "," + Math.Max(0, Couleur.G - 70) + "," +
                    Math.Max(0, Couleur.B - 70) + ")\" " +

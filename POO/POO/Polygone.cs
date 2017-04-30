@@ -20,9 +20,11 @@ namespace POO
         public override string ToSVG(bool is3D, bool contours)
         {
             var sb = new StringBuilder();
+            sb.AppendLine("<!-- POLYGONE -->");
             if (is3D)
             {
-                sb.Append("<polygon points=\"");
+                sb.AppendLine("\t<!-- 3D -->");
+                sb.Append("\t<polygon points=\"");
                 foreach (var point in Points)
                 {
                     //TODO: Profondeur variable
@@ -30,49 +32,52 @@ namespace POO
                     int perspY = (int)(point.Y - Math.Sin(Math.PI / 4) * 50 * 0.5f);
                     sb.Append(perspX + "," +perspY + " ");
                 }
-                sb.Append("\" " + AddPerspectiveStyle() + " />");
-                for (int i = 0; i < Points.Count - 1; i++)
-                {
-                    var p1 = Points[i];
-                    var p2 = Points[i + 1];
-                    int persp1X = (int)(p1.X + Math.Cos(Math.PI / 4) * 50 * 0.5f);
-                    int persp1Y = (int)(p1.Y - Math.Sin(Math.PI / 4) * 50 * 0.5f);
-                    int persp2X = (int)(p2.X + Math.Cos(Math.PI / 4) * 50 * 0.5f);
-                    int persp2Y = (int)(p2.Y - Math.Sin(Math.PI / 4) * 50 * 0.5f);
-                    sb.Append("<polygon points=\"" + p1.X + "," + p1.Y + " " + p2.X +
-                              "," + p2.Y + " " + persp2X + "," + persp2Y + " " + persp1X + "," + persp1Y + "\" " + AddPerspectiveStyle() + "/>");
-                    if (contours)
-                    {
-                        //TODO: Diviser le polygone en triangles et regarder si un point est dans le triangle et dans ce cas ne pas dessiner la ligne
-                        sb.Append("<line x1=\"" + p1.X + "\" y1=\"" + p1.Y + "\" x2=\"" + p2.X + "\" y2=\"" + p2.Y + "\" " +
-                             AddLineStyle() + " />");
-                        sb.Append("<line x1=\"" + p1.X + "\" y1=\"" + p1.Y + "\" x2=\"" + persp1X + "\" y2=\"" + persp1Y + "\" " +
-                             AddLineStyle() + " />");
-                        sb.Append("<line x1=\"" + persp1X + "\" y1=\"" + persp1Y + "\" x2=\"" + persp2X + "\" y2=\"" + persp2Y + "\" " +
-                             AddLineStyle() + " />");
-                        sb.Append("<line x1=\"" + persp2X + "\" y1=\"" + persp2Y + "\" x2=\"" + p2.X + "\" y2=\"" + p2.Y + "\" " +
-                             AddLineStyle() + " />");
-                    }
-                }
+                sb.AppendLine("\" " + AddPerspectiveStyle(contours) + " />");
+                AddPerspective(sb, contours);
+
+                sb.AppendLine("\t<!-- FIN 3D -->");
             }
             sb.Append("<polygon points=\"");
             Points.ForEach(point => sb.Append(point.X+","+point.Y+" "));
-            sb.Append("\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />");
-            if (contours)
-            {
-                for (int i = 0; i < Points.Count - 1; i++)
-                {
-                    var p1 = Points[i];
-                    var p2 = Points[i + 1];
-                    sb.Append("<line x1=\"" + p1.X + "\" y1=\"" + p1.Y + "\" x2=\"" + p2.X + "\" y2=\"" + p2.Y + "\" " +
-                              AddLineStyle() + " />");
-                }
-                sb.Append("<line x1=\"" + Points[Points.Count-1].X + "\" y1=\"" + Points[Points.Count - 1].Y + "\" x2=\"" + Points[0].X + "\" y2=\"" + Points[0].Y + "\" " +
-                              AddLineStyle() + " />");
-            }
+            sb.AppendLine("\" "+AddShapeStyle(contours) +"/>");
+
+            sb.AppendLine("<!-- FIN POLYGONE -->");
             return sb.ToString();
         }
-        
+
+        protected void AddPerspective(StringBuilder sb, bool contours)
+        {
+            for (int i = 0; i < Points.Count - 1; i++)
+            {
+                var p1 = Points[i];
+                var p2 = Points[i + 1];
+                int persp1X = (int)(p1.X + Math.Cos(Math.PI / 4) * 50 * 0.5f);
+                int persp1Y = (int)(p1.Y - Math.Sin(Math.PI / 4) * 50 * 0.5f);
+                int persp2X = (int)(p2.X + Math.Cos(Math.PI / 4) * 50 * 0.5f);
+                int persp2Y = (int)(p2.Y - Math.Sin(Math.PI / 4) * 50 * 0.5f);
+                sb.AppendLine("\t<polygon points=\"" + p1.X + "," + p1.Y + " " + p2.X +
+                          "," + p2.Y + " " + persp2X + "," + persp2Y + " " + persp1X + "," + persp1Y + "\" " + AddPerspectiveStyle(contours) + "/>");
+            }
+        }
+
+        protected override string AddShapeStyle(bool contours)
+        {
+            return "style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ");"+(contours ? AddLineStyle() : "")+"\" " +
+                      (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
+        }
+
+        protected override string AddPerspectiveStyle(bool contours)
+        {
+            return "style=\"fill: rgb(" + Math.Max(0, Couleur.R - 70) + "," + Math.Max(0, Couleur.G - 70) + "," + Math.Max(0, Couleur.B - 70) +");" + (contours ? AddLineStyle() : "") + "\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
+        }
+
+        protected override string AddLineStyle()
+        {
+            return "stroke:rgb(" +
+                   Math.Max(0, Couleur.R - 150) + "," + Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) +
+                   ");stroke-width:1;";
+        }
+
         public void Rotation(int angle, int cx, int cy)
         {
             TransformString += "rotate(" + angle + " " + cx + "," + cy + ") ";

@@ -9,8 +9,8 @@ namespace POO
     internal class SVG
     {
         private readonly List<Forme> _formes;
-        private bool _is3D;
-        private bool _contours;
+        private readonly bool _is3D;
+        private readonly bool _contours;
 
         private SVG(List<Forme> formes, bool is3D, bool contours)
         {
@@ -25,7 +25,9 @@ namespace POO
             sb.Append("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">");
             sb.AppendLine();
             _formes.Sort();
-            _formes.ForEach(f => sb.Append("\t"+f.ToSVG(_is3D, _contours)+"\n"));
+            Console.WriteLine("Render order: ");
+            _formes.ForEach(f => Console.WriteLine(f.GetType()+" "+f.Ordre));
+            _formes.ForEach(f => sb.AppendLine(f.ToSVG(_is3D, _contours)));
             sb.Append("</svg>");
             sb.AppendLine();
             return sb.ToString();

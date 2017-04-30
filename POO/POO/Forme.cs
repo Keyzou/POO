@@ -20,6 +20,25 @@ namespace POO
 
         public abstract string ToSVG(bool is3D, bool contours);
 
+        protected virtual string AddLineStyle()
+        {
+            return "style=\"stroke:rgb(" + Math.Max(0, Couleur.R - 150) + "," +
+                      Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + "";
+        }
+
+        protected virtual string AddShapeStyle()
+        {
+            return "style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " +
+                      (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
+        }
+
+        protected virtual string AddPerspectiveStyle()
+        {
+            return "style=\"fill:rgb(" + Math.Max(0, Couleur.R - 70) + "," + Math.Max(0, Couleur.G - 70) + "," +
+                   Math.Max(0, Couleur.B - 70) + ")\" " +
+                   (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
+        }
+
         public int CompareTo(Forme other)
         {
             return Ordre.CompareTo(other.Ordre);

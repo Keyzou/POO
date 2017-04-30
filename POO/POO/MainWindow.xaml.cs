@@ -23,7 +23,11 @@ namespace POO
 
         private void open_Click(object sender, RoutedEventArgs e)
         {
-            var ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog
+            {
+                Filter = "Fichiers CSV | *.csv",
+                DefaultExt = "csv"
+            };
             if (ofd.ShowDialog() == true)
             {
                 filePath.Text = ofd.FileName;
@@ -34,7 +38,11 @@ namespace POO
         {
             try
             {
-                var sfd = new SaveFileDialog();
+                var sfd = new SaveFileDialog
+                {
+                    Filter = "Fichiers SVG | *.svg",
+                    DefaultExt = "svg"
+                };
                 if (sfd.ShowDialog() == false) return;
                 var svg = SVG.FromFile(filePath.Text, cb3D.IsChecked, cbContour.IsChecked);
                 svg.Save(sfd.FileName);

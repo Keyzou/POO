@@ -17,6 +17,7 @@ namespace POO
         public Color Couleur { get; private set; }
         public int Ordre { get; }
         protected string TransformString;
+        public int Profondeur { get; set; }
 
         public abstract string ToSVG(bool is3D, bool contours);
 

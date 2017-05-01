@@ -27,9 +27,8 @@ namespace POO
                 sb.Append("\t<polygon points=\"");
                 foreach (var point in Points)
                 {
-                    //TODO: Profondeur variable
-                    int perspX = (int)(point.X + Math.Cos(Math.PI / 4) * 50 * 0.5f);
-                    int perspY = (int)(point.Y - Math.Sin(Math.PI / 4) * 50 * 0.5f);
+                    int perspX = (int)(point.X + Math.Cos(Math.PI / 4) * Profondeur * 0.5f);
+                    int perspY = (int)(point.Y - Math.Sin(Math.PI / 4) * Profondeur * 0.5f);
                     sb.Append(perspX + "," +perspY + " ");
                 }
                 sb.AppendLine("\" " + AddPerspectiveStyle(contours) + " />");

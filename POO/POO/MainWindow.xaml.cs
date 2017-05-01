@@ -17,7 +17,8 @@ namespace POO
         public MainWindow()
         {
             InitializeComponent();
-            endPanel.Visibility = Visibility.Hidden;
+            endPanel.Visibility = Visibility.Collapsed;
+            _3DPanel.Visibility = Visibility.Collapsed;
             convert.IsEnabled = false;
         }
 
@@ -44,7 +45,7 @@ namespace POO
                     DefaultExt = "svg"
                 };
                 if (sfd.ShowDialog() == false) return;
-                var svg = SVG.FromFile(filePath.Text, cb3D.IsChecked, cbContour.IsChecked);
+                var svg = SVG.FromFile(filePath.Text, cb3D.IsChecked, cbContour.IsChecked, (int) sliderProfondeur.Value);
                 svg.Save(sfd.FileName);
                 errorLabel.Content = "Conversion réussie !";
                 endPanel.Visibility = Visibility.Visible;
@@ -65,6 +66,16 @@ namespace POO
         private void ouvrirBtn_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start(_lastFile);
+        }
+
+        private void sliderProfondeur_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            labelProfondeur.Content = "Profondeur: " + (int) sliderProfondeur.Value;
+        }
+
+        private void cb3D_Checked(object sender, RoutedEventArgs e)
+        {
+            _3DPanel.Visibility = cb3D.IsChecked != null && cb3D.IsChecked.Value ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

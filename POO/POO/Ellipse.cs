@@ -26,8 +26,8 @@ namespace POO
                 int y1 = Rayon > RayonY ? Centre.Y - RayonY : Centre.Y;
                 int x2 = Rayon > RayonY ? Centre.X : Centre.X + Rayon;
                 int y2 = Rayon > RayonY ? Centre.Y + RayonY : Centre.Y;
-                int rx = Rayon > RayonY ? (int) (50 * Math.Cos(Math.PI / 4) * 0.5f) : Rayon;
-                int ry = Rayon > RayonY ? RayonY : (int) (50 * Math.Sin(Math.PI / 4) * 0.5f);
+                int rx = Rayon > RayonY ? (int) (Profondeur * Math.Cos(Math.PI / 4) * 0.5f) : Rayon;
+                int ry = Rayon > RayonY ? RayonY : (int) (Profondeur * Math.Sin(Math.PI / 4) * 0.5f);
                 sb.AppendLine("\t<path d=\"M" + x1 + " " + y1 + " A " + rx + " " + ry + ", 0, 0 0, " + x2 + " " + y2 + "\" " + AddPerspectiveStyle(contours) + " />");
                 sb.AppendLine("\t<path stroke-dasharray=\"5,5\" d=\"M" + x1 + " " + y1 + " A " + rx +
                           " " + ry + ", 0, 0 1, " + x2 + " " +

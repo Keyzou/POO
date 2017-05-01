@@ -15,8 +15,7 @@ namespace POO
             Longueur = longueur;
             Largeur = largeur;
         }
-
-        public float CoeffProfondeur = 0.5f;
+        
         public Point Location { get; private set; }
         public int Longueur { get; private set; }
         public int Largeur { get; private set; }

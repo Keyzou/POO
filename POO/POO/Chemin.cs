@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Media;
 
 namespace POO
@@ -11,11 +13,17 @@ namespace POO
             Path = path;
         }
 
-        public string Path { get; private set; }
+        public string Path { get; }
         
         public override string ToSVG(bool is3D, bool contours)
         {
-            return "<path d=\""+Path+"\" style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + " />";
+            var d = Path.Split('L', 'M', 'C', 'A', 'Z', 'T', 'Q', 'S', 'V', 'H');
+            d = d.Where(p => !string.IsNullOrEmpty(p)).ToArray();
+            d = d.Select(s => s.Trim()).ToArray();
+            var regx = new Regex("[^a-zA-Z -]");
+            var mvt = regx.Replace(Path, "").Replace(" ", "");
+            // TODO: => 3D
+            return "<path d=\""+Path+"\" "+AddShapeStyle(contours)+" />";
         }
 
         public void Rotation(int angle, int cx, int cy)

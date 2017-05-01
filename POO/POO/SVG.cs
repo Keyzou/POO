@@ -27,13 +27,14 @@ namespace POO
             _formes.Sort();
             Console.WriteLine("Render order: ");
             _formes.ForEach(f => Console.WriteLine(f.GetType()+" "+f.Ordre));
+            // TODO: Projection centrale / point de fuite
             _formes.ForEach(f => sb.AppendLine(f.ToSVG(_is3D, _contours)));
             sb.Append("</svg>");
             sb.AppendLine();
             return sb.ToString();
         }
 
-        public static SVG FromFile(string filePath, bool? is3D, bool? contours)
+        public static SVG FromFile(string filePath, bool? is3D, bool? contours, int profondeur = 0)
         {
             var strArr = File.ReadAllLines(filePath);
             var formes = new List<Forme>();
@@ -123,7 +124,8 @@ namespace POO
                 
 
             }
-
+            if(is3D.Value)
+                formes.ForEach(f => f.Profondeur = profondeur);
             foreach (var transform in transforms)
             {
                 var args = transform.Split(';');

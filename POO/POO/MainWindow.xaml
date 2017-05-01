@@ -10,18 +10,22 @@
     <StackPanel>
         <Label x:Name="label" Content="Conversion CSV =&gt; SVG" HorizontalAlignment="Center"/>
         <Label x:Name="label1" Content="Entrez le fichier à convertir:" Margin="20,0,40,0" HorizontalAlignment="Left"/>
-        <StackPanel Height="20" Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Center">
-            <TextBox x:Name="filePath" TextWrapping="Wrap" Width="250" Margin="0,0,15,0" TextChanged="filePath_TextChanged"/>
-            <Button x:Name="open" Content="Parcourir.." Width="75" Click="open_Click"/>
+        <StackPanel Height="20" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBox x:Name="filePath" TextWrapping="Wrap" Width="250" Margin="20,0" TextChanged="filePath_TextChanged" HorizontalAlignment="Center"/>
+            <Button x:Name="open" Content="Parcourir.." Width="75" Click="open_Click" HorizontalAlignment="Center" Margin="0,0,20,0"/>
         </StackPanel>
-        <StackPanel Height="20" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,10" Width="340">
-            <CheckBox x:Name="cb3D" Content="3D" Margin="10,0,0,0" HorizontalAlignment="Left" ToolTip="Dans la mesure du possible ! (perspective cavalière)"/>
+        <StackPanel Height="20" Orientation="Horizontal" Margin="0,0,0,5" Width="340" HorizontalAlignment="Center">
+            <CheckBox x:Name="cb3D" Content="3D" Margin="10,0,0,0" HorizontalAlignment="Left" ToolTip="Dans la mesure du possible ! (perspective cavalière)" Checked="cb3D_Checked" Unchecked="cb3D_Checked"/>
             <CheckBox x:Name="cbContour" Content="Contour des formes" Margin="20,0,0,0" HorizontalAlignment="Left"/>
         </StackPanel>
-        <Button x:Name="convert" Content="Conversion" Width="100" Height="20" Margin="0" VerticalAlignment="Bottom" Click="convert_Click" HorizontalAlignment="Center"/>
+        <StackPanel x:Name="_3DPanel" Height="46" Width="103" Margin="20,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label x:Name="labelProfondeur" Content="Profondeur: 25"/>
+            <Slider x:Name="sliderProfondeur" Width="99" ValueChanged="sliderProfondeur_ValueChanged" Maximum="100" Value="25"/>
+        </StackPanel>
+        <Button x:Name="convert" Content="Conversion" Width="100" Height="20" Margin="0,0,0,20" VerticalAlignment="Bottom" Click="convert_Click" HorizontalAlignment="Center"/>
         <StackPanel x:Name="endPanel" Height="30" Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Center">
-            <Label x:Name="errorLabel" Content="" Margin="25,0" Foreground="#FF16A62A" Width="250" VerticalAlignment="Center"/>
-            <Button x:Name="ouvrirBtn" Content="Ouvrir" Width="75" VerticalAlignment="Center" Margin="0,0,10,0" Click="ouvrirBtn_Click"/>
+            <Label x:Name="errorLabel" Content="" Margin="25,0,15,0" Foreground="#FF16A62A" Width="250" VerticalAlignment="Center"/>
+            <Button x:Name="ouvrirBtn" Content="Ouvrir" Width="75" VerticalAlignment="Center" Margin="0,0,20,0" Click="ouvrirBtn_Click"/>
         </StackPanel>
     </StackPanel>
 </Window>

@@ -13,6 +13,13 @@ namespace POO
         private readonly bool _contours;
         private readonly int _tailleContours;
 
+        /// <summary>
+        /// Instancie la classe svg
+        /// </summary>
+        /// <param name="formes">Liste des formes a convertir</param>
+        /// <param name="is3D">3D?</param>
+        /// <param name="contours">Contours?</param>
+        /// <param name="tailleContours">Taille des contours</param>
         private SVG(List<Forme> formes, bool is3D, bool contours, int tailleContours)
         {
             _formes = formes;
@@ -21,6 +28,10 @@ namespace POO
             _tailleContours = tailleContours;
         }
 
+        /// <summary>
+        /// Convertit en svg
+        /// </summary>
+        /// <returns></returns>
         public string ToSVG()
         {
             var sb = new StringBuilder();
@@ -36,6 +47,15 @@ namespace POO
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Crée une instance de la classe svg a partir d'un fichier
+        /// </summary>
+        /// <param name="filePath">Chemin du fichier</param>
+        /// <param name="is3D">3D?</param>
+        /// <param name="contours">Contour?</param>
+        /// <param name="profondeur">Profondeur de la 3d</param>
+        /// <param name="tailleContours">Taille des contours</param>
+        /// <returns></returns>
         public static SVG FromFile(string filePath, bool? is3D, bool? contours, int profondeur = 0, int tailleContours = 0)
         {
             var strArr = File.ReadAllLines(filePath);
@@ -148,7 +168,10 @@ namespace POO
 
             return new SVG(formes, is3D ?? false , contours ?? false, tailleContours);
         }
-
+        /// <summary>
+        /// Enregistre le fichier svg
+        /// </summary>
+        /// <param name="path">Chemin du nouveau fichier</param>
         public void Save(string path)
         {
             File.WriteAllText(path, ToSVG());

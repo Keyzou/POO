@@ -6,15 +6,24 @@ namespace POO
 {
     internal class Cercle : Forme, ITranslatable
     {
+        //Constructeur
         public Cercle(int idElement, Color couleur, int ordre, int cx, int cy, int r) : base(idElement, couleur, ordre)
         {
             Centre = new Point(cx, cy);
             Rayon = r;
         }
 
+        //Attributs
         public Point Centre { get; private set; }
         public int Rayon { get; private set; }
         
+        /// <summary>
+        /// Ovveride de la classe 
+        /// </summary>
+        /// <param name="is3D">Si la forme peut être affiché en 3d</param>
+        /// <param name="contours">Savoir si on dessine un contour ou pas</param>
+        /// <param name="tailleContours">taille du contour</param>
+        /// <returns></returns>
         public override string ToSVG(bool is3D, bool contours, int tailleContours = 0)
         {
             var sb = new StringBuilder();
@@ -44,7 +53,7 @@ namespace POO
             sb.AppendLine("<!-- FIN CERCLE -->");
             return sb.ToString();
         }
-
+        //Methodes override de la classe forme
         protected override string AddLineStyle(int taille)
         {
             return "stroke=\"rgb(" + Math.Max(0, Couleur.R - 150) + "," +
@@ -57,7 +66,11 @@ namespace POO
                    Math.Max(0, Couleur.R - 150) + "," + Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) +
                    ");stroke-width:1" : "" ) +"\" "+ (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
         }
-
+        /// <summary>
+        /// Fonction redefinie de l'interface Itranslatable
+        /// </summary>
+        /// <param name="dx">Nouvelle position x</param>
+        /// <param name="dy">Nouvelle position y</param>
         public void Translation(int dx, int dy)
         {
             TransformString += "translate(" + dx + "," + dy + ") ";

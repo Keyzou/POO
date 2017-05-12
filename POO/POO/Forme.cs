@@ -19,12 +19,12 @@ namespace POO
         protected string TransformString;
         public int Profondeur { get; set; }
 
-        public abstract string ToSVG(bool is3D, bool contours);
+        public abstract string ToSVG(bool is3D, bool contours, int tailleContours = 0);
 
-        protected virtual string AddLineStyle()
+        protected virtual string AddLineStyle(int taille)
         {
             return "style=\"stroke:rgb(" + Math.Max(0, Couleur.R - 150) + "," +
-                      Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) + ")\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + "";
+                      Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) + ");"+(taille>0 ? "stroke-width:"+taille+";" : "")+"\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "") + "";
         }
 
         protected virtual string AddShapeStyle(bool contours)

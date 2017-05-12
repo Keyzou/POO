@@ -11,12 +11,14 @@ namespace POO
         private readonly List<Forme> _formes;
         private readonly bool _is3D;
         private readonly bool _contours;
+        private readonly int _tailleContours;
 
-        private SVG(List<Forme> formes, bool is3D, bool contours)
+        private SVG(List<Forme> formes, bool is3D, bool contours, int tailleContours)
         {
             _formes = formes;
             _is3D = is3D;
             _contours = contours;
+            _tailleContours = tailleContours;
         }
 
         public string ToSVG()
@@ -28,13 +30,13 @@ namespace POO
             Console.WriteLine("Render order: ");
             _formes.ForEach(f => Console.WriteLine(f.GetType()+" "+f.Ordre));
             // TODO: Projection centrale / point de fuite
-            _formes.ForEach(f => sb.AppendLine(f.ToSVG(_is3D, _contours)));
+            _formes.ForEach(f => sb.AppendLine(f.ToSVG(_is3D, _contours, _tailleContours)));
             sb.Append("</svg>");
             sb.AppendLine();
             return sb.ToString();
         }
 
-        public static SVG FromFile(string filePath, bool? is3D, bool? contours, int profondeur = 0)
+        public static SVG FromFile(string filePath, bool? is3D, bool? contours, int profondeur = 0, int tailleContours = 0)
         {
             var strArr = File.ReadAllLines(filePath);
             var formes = new List<Forme>();
@@ -144,7 +146,7 @@ namespace POO
                 }
             }
 
-            return new SVG(formes, is3D ?? false , contours ?? false);
+            return new SVG(formes, is3D ?? false , contours ?? false, tailleContours);
         }
 
         public void Save(string path)

@@ -14,11 +14,11 @@ namespace POO
 
         public int RayonY { get; private set; }
 
-        public override string ToSVG(bool is3D, bool contours)
+        public override string ToSVG(bool is3D, bool contours, int tailleContours = 0)
         {
             var sb = new StringBuilder();
             sb.AppendLine("<!-- ELLIPSE -->");
-            sb.AppendLine("<ellipse "+ (contours ? AddLineStyle() : "") + " cx=\""+Centre.X+"\" cy=\""+Centre.Y+"\" rx=\""+Rayon+"\" ry=\""+RayonY+"\" "+AddShapeStyle(contours)+" />");
+            sb.AppendLine("<ellipse "+ (contours ? AddLineStyle(tailleContours) : "") + " cx=\""+Centre.X+"\" cy=\""+Centre.Y+"\" rx=\""+Rayon+"\" ry=\""+RayonY+"\" "+AddShapeStyle(contours)+" />");
             if (is3D)
             {
                 sb.AppendLine("\t<!-- 3D -->");

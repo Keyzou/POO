@@ -19,6 +19,7 @@ namespace POO
             InitializeComponent();
             endPanel.Visibility = Visibility.Collapsed;
             _3DPanel.Visibility = Visibility.Collapsed;
+            panelContours.Visibility = Visibility.Collapsed;
             convert.IsEnabled = false;
         }
 
@@ -45,7 +46,7 @@ namespace POO
                     DefaultExt = "svg"
                 };
                 if (sfd.ShowDialog() == false) return;
-                var svg = SVG.FromFile(filePath.Text, cb3D.IsChecked, cbContour.IsChecked, (int) sliderProfondeur.Value);
+                var svg = SVG.FromFile(filePath.Text, cb3D.IsChecked, cbContour.IsChecked, (int) sliderProfondeur.Value, (int) sliderContours.Value);
                 svg.Save(sfd.FileName);
                 errorLabel.Content = "Conversion réussie !";
                 endPanel.Visibility = Visibility.Visible;
@@ -76,6 +77,16 @@ namespace POO
         private void cb3D_Checked(object sender, RoutedEventArgs e)
         {
             _3DPanel.Visibility = cb3D.IsChecked != null && cb3D.IsChecked.Value ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void sliderContours_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            labelTailleCont.Content = "Taille des contours: " + (int) sliderContours.Value;
+        }
+
+        private void cbContour_Checked(object sender, RoutedEventArgs e)
+        {
+            panelContours.Visibility = cbContour.IsChecked != null && (bool) cbContour.IsChecked ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

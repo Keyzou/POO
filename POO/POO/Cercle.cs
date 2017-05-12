@@ -15,12 +15,12 @@ namespace POO
         public Point Centre { get; private set; }
         public int Rayon { get; private set; }
         
-        public override string ToSVG(bool is3D, bool contours)
+        public override string ToSVG(bool is3D, bool contours, int tailleContours = 0)
         {
             var sb = new StringBuilder();
             sb.AppendLine("<!-- CERCLE -->");
 
-            sb.AppendLine("<circle "+(contours ? AddLineStyle() : "")+" cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" "+AddShapeStyle(contours)+" />");
+            sb.AppendLine("<circle "+(contours ? AddLineStyle(tailleContours) : "")+" cx=\"" + Centre.X + "\" cy=\"" + Centre.Y + "\" r=\"" + Rayon + "\" "+AddShapeStyle(contours)+" />");
             if (is3D)
             {
                 sb.AppendLine("\t<!-- 3D -->");
@@ -45,10 +45,10 @@ namespace POO
             return sb.ToString();
         }
 
-        protected override string AddLineStyle()
+        protected override string AddLineStyle(int taille)
         {
             return "stroke=\"rgb(" + Math.Max(0, Couleur.R - 150) + "," +
-                   Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) + ")\" stroke-width=\"1\"";
+                   Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) + ")\" stroke-width=\""+taille+"\"";
         }
 
         protected override string AddPerspectiveStyle(bool contours)

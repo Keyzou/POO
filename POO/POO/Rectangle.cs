@@ -20,8 +20,9 @@ namespace POO
         public int Longueur { get; private set; }
         public int Largeur { get; private set; }
 
-        public override string ToSVG(bool is3D, bool contours)
+        public override string ToSVG(bool is3D, bool contours, int tailleContours = 0)
         {
+            TailleContours = tailleContours;
             var sb = new StringBuilder();
             sb.AppendLine("<!-- RECTANGLE -->");
             if (is3D)

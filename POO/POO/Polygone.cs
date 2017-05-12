@@ -16,9 +16,11 @@ namespace POO
         }
 
         public List<Point> Points { get; private set; }
+        protected int TailleContours = 0;
 
-        public override string ToSVG(bool is3D, bool contours)
+        public override string ToSVG(bool is3D, bool contours, int tailleContours = 0)
         {
+            TailleContours = tailleContours;
             var sb = new StringBuilder();
             sb.AppendLine("<!-- POLYGONE -->");
             if (is3D)
@@ -61,20 +63,20 @@ namespace POO
 
         protected override string AddShapeStyle(bool contours)
         {
-            return "style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ");"+(contours ? AddLineStyle() : "")+"\" " +
+            return "style=\"fill: rgb(" + Couleur.R + "," + Couleur.G + "," + Couleur.B + ");"+(contours ? AddLineStyle(TailleContours) : "")+"\" " +
                       (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
         }
 
         protected override string AddPerspectiveStyle(bool contours)
         {
-            return "style=\"fill: rgb(" + Math.Max(0, Couleur.R - 70) + "," + Math.Max(0, Couleur.G - 70) + "," + Math.Max(0, Couleur.B - 70) +");" + (contours ? AddLineStyle() : "") + "\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
+            return "style=\"fill: rgb(" + Math.Max(0, Couleur.R - 70) + "," + Math.Max(0, Couleur.G - 70) + "," + Math.Max(0, Couleur.B - 70) +");" + (contours ? AddLineStyle(TailleContours) : "") + "\" " + (!string.IsNullOrEmpty(TransformString) ? "transform=\"" + TransformString + "\"" : "");
         }
 
-        protected override string AddLineStyle()
+        protected override string AddLineStyle(int taille)
         {
             return "stroke:rgb(" +
                    Math.Max(0, Couleur.R - 150) + "," + Math.Max(0, Couleur.G - 150) + "," + Math.Max(0, Couleur.B - 150) +
-                   ");stroke-width:1;";
+                   ");stroke-width:"+taille+";";
         }
 
         public void Rotation(int angle, int cx, int cy)
